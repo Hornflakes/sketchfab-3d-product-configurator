@@ -3,6 +3,7 @@ class Configurator {
 	nodes = {};
 	materials = {};
 	textures = {};
+  ui;
 
 	constructor(urlId) {
 		this.urlId = urlId;
@@ -57,13 +58,14 @@ class Configurator {
     this.api.getNodeMap((err, nodes) => {
       if(!err) {
 				this.groupNodesByMaterial(nodes);
+        this.initUserInterface();
+
 				this.consoleLog();
-				this.setMaterialTexture('68a46163-dfa6-4e90-bafe-6205327de648', 'c8fcc68855ed4823827f5722c8f5000a')
       }
 		});
   }
 
-	groupNodesByMaterial = (nodes) => {
+	groupNodesByMaterial(nodes) {
 		for (const [,node] of Object.entries(nodes)) {
 			if(node.materialID) {
 				this.nodes[node.materialID].push(node);
@@ -71,7 +73,12 @@ class Configurator {
 		}
 	}
 
-  consoleLog = () => {
+  initUserInterface() {
+    this.ui = new UI(this);
+    this.ui.init();
+  }
+
+  consoleLog() {
     console.log('nodes -->', this.nodes);
     console.log('materials -->', this.materials);
     console.log('textures -->', this.textures);
@@ -99,6 +106,61 @@ class Configurator {
 			this.api.hide(n.instanceID);
 		})
 	}
+}
+
+class UI {
+  form;
+
+	constructor(configurator) {
+		this.configurator = configurator;
+	}
+
+  init() {
+    this.form = document.querySelector("form");
+    this.render();
+    this.initSelects();
+  }
+
+  render() {
+    let optionsHtml = '';
+    for (const [id, texture] of Object.entries(this.configurator.textures)) {
+      optionsHtml += `<option value="${id}">${texture.name}</option>`
+    }
+
+    let selectHtml = '';
+    for (const [id, material] of Object.entries(this.configurator.materials)) {
+      selectHtml += `<div class="select-card"> <label for="${material.name}">${material.name}</label> <div class="select-wrapper"> <select name="${material.name}" id=${id}>${optionsHtml}</select> </div> </div>`
+    }
+    
+    this.form.innerHTML = selectHtml;
+  }
+
+  initSelects() {
+    const selects = document.querySelectorAll("select");
+    selects.forEach((s) => {
+      this.selectDefaultValue(s);
+      this.initEventListener(s);
+    });
+  }
+
+  selectDefaultValue(htmlSelectEl) {
+    htmlSelectEl.value = this.configurator.materials[htmlSelectEl.id].channels.AlbedoPBR.texture.uid;
+  }
+
+  initEventListener(htmlSelectEl) {
+    htmlSelectEl.addEventListener("change", (e) => {
+      e.preventDefault();
+      this.onSelect(htmlSelectEl);
+    });
+  }
+
+  onSelect(htmlSelectEl) {
+    const options = htmlSelectEl.options;
+    const materialId = htmlSelectEl.id;
+    const textureId = options[options.selectedIndex].value;
+
+    this.configurator.setMaterialTexture(materialId, textureId);
+  }
 }
 
 

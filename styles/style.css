@@ -1,11 +1,62 @@
-html,
+html {
+    height: 100%;
+}
+
 body {
     height: 100%;
     width: 100%;
+
+    display: flex;
+    align-items: center;
 }
 
 iframe {
-    display: flex;
     width: 100%;
     height: 100%;
+
+    display: flex;
+}
+
+form {
+    position: absolute;
+    margin-left: 20px;
+
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.select-card {
+    padding: 20px;
+
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+
+    background-color: white;
+    border: 2px solid black;
+}
+
+.select-card select {
+    padding: 5px;
+    padding-right: 25px;
+
+    border: 2px solid black;
+}
+
+.select-card .select-wrapper {
+    position: relative;
+
+    display: flex;
+    align-items: center;
+}
+
+.select-card .select-wrapper::after {
+    position: absolute;
+    right: 10px;
+    margin-bottom: 3px;
+
+    content: "⌄";
+
+    pointer-events: none;
 }
