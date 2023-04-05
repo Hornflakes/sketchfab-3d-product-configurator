@@ -58,7 +58,7 @@ class Configurator {
     this.api.getNodeMap((err, nodes) => {
       if(!err) {
 				this.groupNodesByMaterial(nodes);
-        this.initUserInterface();
+        this.initUI();
 
 				this.consoleLog();
       }
@@ -73,7 +73,7 @@ class Configurator {
 		}
 	}
 
-  initUserInterface() {
+  initUI() {
     this.ui = new UI(this);
     this.ui.init();
   }
@@ -109,57 +109,94 @@ class Configurator {
 }
 
 class UI {
-  form;
+  materialEls;
+  selectableColorsEls;
+  colorEls;
 
 	constructor(configurator) {
 		this.configurator = configurator;
 	}
 
   init() {
-    this.form = document.querySelector("form");
-    this.render();
-    this.initSelects();
+    this.getHTMLElements();
+    this.initMaterialEventListeners();
+    this.initColorEventListeners();
   }
 
-  render() {
-    let optionsHtml = '';
-    for (const [id, texture] of Object.entries(this.configurator.textures)) {
-      optionsHtml += `<option value="${id}">${texture.name}</option>`
+  getHTMLElements() {
+    this.materialEls = document.getElementsByClassName('material');
+    this.selectableColorsEls = document.getElementsByClassName('colors');
+    this.colorEls = document.getElementsByClassName('color');
+  }
+
+  initMaterialEventListeners() {
+    for(let el of this.materialEls) {
+      el.addEventListener("click", () => this.onSelectMaterial(el));
     }
+  }
 
-    let selectHtml = '';
-    for (const [id, material] of Object.entries(this.configurator.materials)) {
-      selectHtml += `<div class="select-card"> <label for="${material.name}">${material.name}</label> <div class="select-wrapper"> <select name="${material.name}" id=${id}>${optionsHtml}</select> </div> </div>`
+  initColorEventListeners() {
+    for(let el of this.colorEls) {
+      el.addEventListener("click", () => this.onSelectColor(el));
     }
-    
-    this.form.innerHTML = selectHtml;
   }
 
-  initSelects() {
-    const selects = document.querySelectorAll("select");
-    selects.forEach((s) => {
-      this.selectDefaultValue(s);
-      this.initEventListener(s);
-    });
+  onSelectMaterial(selectedMaterialEl) {
+    this.updateMaterialsUIState(selectedMaterialEl);
+    this.updateSelectableColorsUIState(selectedMaterialEl);
   }
 
-  selectDefaultValue(htmlSelectEl) {
-    htmlSelectEl.value = this.configurator.materials[htmlSelectEl.id].channels.AlbedoPBR.texture.uid;
+  updateMaterialsUIState(selectedMaterialEl) {
+    for(let el of this.materialEls) {
+      el.classList.remove('selected');
+    }
+    selectedMaterialEl.classList.add('selected');
   }
 
-  initEventListener(htmlSelectEl) {
-    htmlSelectEl.addEventListener("change", (e) => {
-      e.preventDefault();
-      this.onSelect(htmlSelectEl);
-    });
+  updateSelectableColorsUIState(selectedMaterialEl) {
+    for(let el of this.selectableColorsEls) {
+      el.classList.remove('active');
+    }
+    const selectedColorsEl = document.getElementsByClassName(selectedMaterialEl.id)[0];
+    selectedColorsEl.classList.add('active');
+
+    const firstColorEl = selectedColorsEl.getElementsByClassName('color')[0];
+    this.onSelectColor(firstColorEl);
+  }
+ 
+  onSelectColor(selectedColorEl) {
+    this.updateColorUIState(selectedColorEl);
   }
 
-  onSelect(htmlSelectEl) {
-    const options = htmlSelectEl.options;
-    const materialId = htmlSelectEl.id;
-    const textureId = options[options.selectedIndex].value;
+  updateColorUIState(selectedColorEl) {
+    for(let el of this.colorEls) {
+      el.classList.remove('selected');
+    }
+    selectedColorEl.classList.add('selected');
 
-    this.configurator.setMaterialTexture(materialId, textureId);
+    this.updateConfigurator();
+  }
+
+  // this will be changed with the actual logic, right now it's just random
+  updateConfigurator() {
+    const textureIds = Object.entries(this.configurator.textures)
+      .reduce((acc, [id, _]) => {
+        acc.push(id); 
+        return acc;
+      }, 
+      []
+    );
+
+    const materialIds = Object.entries(this.configurator.materials)
+      .reduce((acc, [id, _]) => {
+        acc.push(id);
+        return acc;
+      },
+      []
+    );
+
+    // changes the back of the chair with a random texture
+    this.configurator.setMaterialTexture(materialIds[2], textureIds[Math.floor(Math.random() * textureIds.length)]);
   }
 }
 
