@@ -10,8 +10,21 @@ body {
     align-items: center;
 }
 
+h1 {
+    font-size: 18px;
+}
+
+h2 {
+    font-size: 16px;
+}
+
+b {
+    font-weight: bold;
+}
+
 iframe {
     height: 100%;
+
     display: flex;
     flex-grow: 1;
 }
@@ -21,14 +34,48 @@ form {
     height: 100%;
 }
 
-.dropdown {
-    padding: 24px;
+.dropdown-header {
+    position: relative;
+    z-index: 999;
+
+    padding: 20px;
+    background-color: #dddddd;
+
     display: flex;
-    flex-direction: column;
-    gap: 16px;
+    justify-content: space-between;
+    align-items: center;
+
+    cursor: pointer;
+}
+
+.chevron {
+    transition: 0.3s ease-in-out;
+}
+
+.rotate-180 {
+    transform: rotate(180deg);
+}
+
+.dropdown-items {
+    position: absolute;
+    top: 72px;
+
+    transition: 0.5s ease-in-out;
+}
+
+.hide-dropdown {
+    position: absolute;
+    top: calc(-100% - 72px);
+}
+
+.chevron {
+    width: 32px;
+    height: 32px;
 }
 
 section {
+    padding: 20px;
+
     display: flex;
     flex-direction: column;
     gap: 16px;
@@ -53,13 +100,13 @@ img {
 }
 
 .grayscaler {
-    display: none;
-
     position: absolute;
     top: 0;
     left: 0;
     height: 72px;
     border-radius: 5px;
+
+    display: none;
     background: rgba(0, 0, 0, 0.25);
 }
 

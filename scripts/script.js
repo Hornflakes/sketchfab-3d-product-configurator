@@ -109,6 +109,7 @@ class Configurator {
 }
 
 class UI {
+  dropdownHeaderEls;
   materialEls;
   selectableColorsEls;
   colorEls;
@@ -119,14 +120,22 @@ class UI {
 
   init() {
     this.getHTMLElements();
+    this.initDropdownHeaderEventListeners();
     this.initMaterialEventListeners();
     this.initColorEventListeners();
   }
 
   getHTMLElements() {
+    this.dropdownHeaderEls = document.getElementsByClassName('dropdown-header');
     this.materialEls = document.getElementsByClassName('material');
     this.selectableColorsEls = document.getElementsByClassName('colors');
     this.colorEls = document.getElementsByClassName('color');
+  }
+
+  initDropdownHeaderEventListeners() {
+    for(let el of this.dropdownHeaderEls) {
+      el.addEventListener("click", () => this.onClickDropdownHeader(el));
+    }
   }
 
   initMaterialEventListeners() {
@@ -139,6 +148,18 @@ class UI {
     for(let el of this.colorEls) {
       el.addEventListener("click", () => this.onSelectColor(el));
     }
+  }
+
+  onClickDropdownHeader(dropdownHeaderEl) {
+    const dropdownArrow = dropdownHeaderEl.getElementsByClassName('chevron')[0];
+    this.animateDropdownArrow(dropdownArrow);
+
+    const dropdownItemsEl = document.getElementsByClassName(dropdownHeaderEl.id)[0];
+    dropdownItemsEl.classList.toggle('hide-dropdown');
+  }
+
+  animateDropdownArrow(el) {
+    el.classList.toggle('rotate-180');
   }
 
   onSelectMaterial(selectedMaterialEl) {
