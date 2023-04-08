@@ -120,6 +120,7 @@ class UI {
 
   init() {
     this.getHTMLElements();
+    this.selectFirstMaterial();
     this.initDropdownHeaderEventListeners();
     this.initMaterialEventListeners();
     this.initColorEventListeners();
@@ -130,6 +131,11 @@ class UI {
     this.materialEls = document.getElementsByClassName('material');
     this.selectableColorsEls = document.getElementsByClassName('colors');
     this.colorEls = document.getElementsByClassName('color');
+  }
+
+  selectFirstMaterial() {
+    const el = this.materialEls[0];
+    this.onSelectMaterial(el);
   }
 
   initDropdownHeaderEventListeners() {
@@ -169,9 +175,9 @@ class UI {
 
   updateMaterialsUIState(selectedMaterialEl) {
     for(let el of this.materialEls) {
-      el.classList.remove('selected');
+      el.removeAttribute('selected');
     }
-    selectedMaterialEl.classList.add('selected');
+    selectedMaterialEl.setAttribute('selected', '');
   }
 
   updateSelectableColorsUIState(selectedMaterialEl) {
@@ -191,9 +197,9 @@ class UI {
 
   updateColorUIState(selectedColorEl) {
     for(let el of this.colorEls) {
-      el.classList.remove('selected');
+      el.removeAttribute('selected');
     }
-    selectedColorEl.classList.add('selected');
+    selectedColorEl.setAttribute('selected', '');
 
     this.updateConfigurator();
   }

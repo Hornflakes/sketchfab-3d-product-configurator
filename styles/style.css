@@ -87,38 +87,9 @@ section {
     gap: 12px;
 }
 
-img {
+selectable-image {
+    height: 72px;
     width: 72px;
-    height: 72px;
-    border-radius: 5px;
-}
-
-.image-wrapper {
-    position: relative;
-    cursor: pointer;
-    line-height: 0;
-}
-
-.grayscaler {
-    position: absolute;
-    top: 0;
-    left: 0;
-    height: 72px;
-    border-radius: 5px;
-
-    display: none;
-    background: rgba(0, 0, 0, 0.25);
-}
-
-.image-wrapper.selected > .grayscaler,
-.image-wrapper:hover > .grayscaler {
-    display: block;
-}
-
-.checkmark {
-    width: 24px;
-    height: 24px;
-    margin: 24px;
 }
 
 .colors {
