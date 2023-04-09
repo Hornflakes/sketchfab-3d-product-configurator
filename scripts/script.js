@@ -25,7 +25,7 @@ class Configurator {
 					() => {
 						this.getTextures();
 						this.getMaterials();
-						this.getNodes();
+            this.getNodes();
 					}
 				);
 			}
@@ -111,19 +111,53 @@ class Configurator {
 class UI {
   dropdownHeaderEls;
   materialSelectorEls;
+  formEl;
+  formWidth = 532;
+  scrollBarWidth;
 
 	constructor(configurator) {
 		this.configurator = configurator;
 	}
 
   init() {
+	  this.getScrollbarWidth();
     this.getHTMLElements();
+    this.setMaterialIdAttributes();
     this.initEventListeners()
+  }
+
+  getScrollbarWidth() {
+    let scrollBox = document.createElement('div');
+    scrollBox.style.position = "absolute";
+    scrollBox.style.visibility = "hidden";
+    scrollBox.style.overflow = 'scroll';
+
+    document.body.appendChild(scrollBox);
+    this.scrollBarWidth = scrollBox.offsetWidth - scrollBox.clientWidth;
+    document.body.removeChild(scrollBox);
   }
 
   getHTMLElements() {
     this.dropdownHeaderEls = document.getElementsByClassName('dropdown-header');
     this.materialSelectorEls = document.getElementsByTagName('material-selector');
+    this.formEl = document.querySelector('form');
+    this.updateFormStyle();
+  }
+
+  setMaterialIdAttributes() {
+    const materialIds = Object.entries(this.configurator.materials)
+      .reduce((acc, [id, _]) => {
+        acc.push(id);
+        return acc;
+      },
+      []
+    );
+
+    const spatar = document.querySelector('.spatar');
+    spatar.setAttribute('material-id', materialIds[2]);
+
+    const sezut = document.querySelector('.sezut');
+    sezut.setAttribute('material-id', materialIds[1]);
   }
 
   initEventListeners() {
@@ -139,25 +173,40 @@ class UI {
   
 
   onClickDropdownHeader(dropdownHeaderEl) {
-    const dropdownArrow = dropdownHeaderEl.getElementsByClassName('chevron')[0];
+    const dropdownArrow = dropdownHeaderEl.querySelector('.chevron');
     this.animateDropdownArrow(dropdownArrow);
 
-    const dropdownItemsEl = document.getElementsByClassName(dropdownHeaderEl.id)[0];
-    dropdownItemsEl.classList.toggle('hide-dropdown');
+    const dropdownItemsEl = document.querySelector('.' + dropdownHeaderEl.id);
+    dropdownItemsEl.classList.toggle('hidden');
+
+    this.updateFormStyle();
+  }
+
+  updateFormStyle() {
+    if(this.formEl.offsetWidth > this.formEl.clientWidth) {
+      this.setFormWidth(this.formWidth + this.scrollBarWidth);
+    } else {
+      this.setFormWidth(this.formWidth)
+    }
+  }
+  
+  setFormWidth(width) {
+    this.formEl.style.width = width + 'px';
   }
 
   animateDropdownArrow(el) {
-    el.classList.toggle('rotate-180');
+    el.classList.toggle('active');
   }
 
   initMaterialSelectorEventListeners() {
     for(let el of this.materialSelectorEls) {
-      el.addEventListener("select", () => this.updateConfigurator());
+      el.addEventListener("select", (e) => this.updateConfigurator(e));
     }
   }
 
   // this will be changed with the actual logic, right now it's just random
-  updateConfigurator() {
+  updateConfigurator(event) {
+    const materialId = event.detail.materialId;
     const textureIds = Object.entries(this.configurator.textures)
       .reduce((acc, [id, _]) => {
         acc.push(id); 
@@ -166,16 +215,7 @@ class UI {
       []
     );
 
-    const materialIds = Object.entries(this.configurator.materials)
-      .reduce((acc, [id, _]) => {
-        acc.push(id);
-        return acc;
-      },
-      []
-    );
-
-    // changes the back of the chair with a random texture
-    this.configurator.setMaterialTexture(materialIds[2], textureIds[Math.floor(Math.random() * textureIds.length)]);
+    this.configurator.setMaterialTexture(materialId, textureIds[Math.floor(Math.random() * textureIds.length)]);
   }
 }
 

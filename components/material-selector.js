@@ -109,7 +109,7 @@ class MaterialSelector extends HTMLElement {
         </div>
       </section>
 
-      <section>
+      <section class="last">
         <h2>
           <b>Culori</b>
         </h2>
@@ -493,6 +493,10 @@ class MaterialSelector extends HTMLElement {
         gap: 16px;
       }
 
+      section.last {
+        padding-bottom: 30px;
+      }
+
       .images {
         display: flex;
         flex-wrap: wrap;
@@ -612,7 +616,9 @@ class MaterialSelector extends HTMLElement {
   }
 
   dispatchSelectEvent() {
-    this.dispatchEvent(new CustomEvent("select"));
+    this.dispatchEvent(new CustomEvent("select", {
+      detail: { materialId: this['material-id'] }
+    }));
   }
 }
 window.customElements.define('material-selector', MaterialSelector);

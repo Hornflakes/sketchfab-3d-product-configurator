@@ -29,12 +29,16 @@ iframe {
 form {
     width: 532px;
     height: 100%;
+    display: flex;
+    flex-direction: column;
+    overflow-y: auto;
+}
+
+.dropdown {
+    position: relative;
 }
 
 .dropdown-header {
-    position: relative;
-    z-index: 999;
-
     padding: 20px;
     background-color: #dddddd;
 
@@ -46,26 +50,15 @@ form {
 }
 
 .chevron {
-    transition: 0.3s ease-in-out;
-}
-
-.rotate-180 {
     transform: rotate(180deg);
-}
-
-.dropdown-items {
-    position: absolute;
-    top: 72px;
-
-    transition: 0.5s ease-in-out;
-}
-
-.hide-dropdown {
-    position: absolute;
-    top: calc(-100% - 72px);
-}
-
-.chevron {
     width: 32px;
     height: 32px;
+}
+
+.chevron.active {
+    transform: rotate(0);
+}
+
+.hidden {
+    display: none;
 }
