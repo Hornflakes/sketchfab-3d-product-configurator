@@ -1,3 +1,8 @@
+:root {
+    --dark-gray: #222;
+    --light-gray: #ddd;
+}
+
 html {
     height: 100%;
     user-select: none;
@@ -32,6 +37,7 @@ form {
     display: flex;
     flex-direction: column;
     overflow-y: auto;
+    box-shadow: -5px 0 5px -5px #aaa;
 }
 
 .dropdown {
@@ -40,7 +46,7 @@ form {
 
 .dropdown-header {
     padding: 20px;
-    background-color: #dddddd;
+    background-color: var(--light-gray);
 
     display: flex;
     justify-content: space-between;
@@ -49,14 +55,18 @@ form {
     cursor: pointer;
 }
 
+.dropdown:not(:last-child) > .dropdown-header:not(.active) {
+    border-bottom: 1px solid var(--dark-gray);
+}
+
+.dropdown-header.active .chevron {
+    transform: rotate(0);
+}
+
 .chevron {
     transform: rotate(180deg);
     width: 32px;
     height: 32px;
-}
-
-.chevron.active {
-    transform: rotate(0);
 }
 
 .hidden {

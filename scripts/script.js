@@ -173,13 +173,15 @@ class UI {
   
 
   onClickDropdownHeader(dropdownHeaderEl) {
-    const dropdownArrow = dropdownHeaderEl.querySelector('.chevron');
-    this.animateDropdownArrow(dropdownArrow);
+    this.updateDropdownUIState(dropdownHeaderEl);
+    this.updateFormStyle();
+  }
+
+  updateDropdownUIState(dropdownHeaderEl) {
+    dropdownHeaderEl.classList.toggle('active');
 
     const dropdownItemsEl = document.querySelector('.' + dropdownHeaderEl.id);
     dropdownItemsEl.classList.toggle('hidden');
-
-    this.updateFormStyle();
   }
 
   updateFormStyle() {
@@ -192,10 +194,6 @@ class UI {
   
   setFormWidth(width) {
     this.formEl.style.width = width + 'px';
-  }
-
-  animateDropdownArrow(el) {
-    el.classList.toggle('active');
   }
 
   initMaterialSelectorEventListeners() {

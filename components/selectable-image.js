@@ -47,7 +47,7 @@ class SelectableImage extends HTMLElement {
         border-radius: 5px;
     
         display: none;
-        background: rgba(0, 0, 0, 0.25);
+        background: rgba(0, 0, 0, 0.075);
       }
     
       #checkmark {
