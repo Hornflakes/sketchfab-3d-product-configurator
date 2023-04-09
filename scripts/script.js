@@ -110,9 +110,7 @@ class Configurator {
 
 class UI {
   dropdownHeaderEls;
-  materialEls;
-  selectableColorsEls;
-  colorEls;
+  materialSelectorEls;
 
 	constructor(configurator) {
 		this.configurator = configurator;
@@ -120,22 +118,17 @@ class UI {
 
   init() {
     this.getHTMLElements();
-    this.selectFirstMaterial();
-    this.initDropdownHeaderEventListeners();
-    this.initMaterialEventListeners();
-    this.initColorEventListeners();
+    this.initEventListeners()
   }
 
   getHTMLElements() {
     this.dropdownHeaderEls = document.getElementsByClassName('dropdown-header');
-    this.materialEls = document.getElementsByClassName('material');
-    this.selectableColorsEls = document.getElementsByClassName('colors');
-    this.colorEls = document.getElementsByClassName('color');
+    this.materialSelectorEls = document.getElementsByTagName('material-selector');
   }
 
-  selectFirstMaterial() {
-    const el = this.materialEls[0];
-    this.onSelectMaterial(el);
+  initEventListeners() {
+    this.initDropdownHeaderEventListeners();
+    this.initMaterialSelectorEventListeners();
   }
 
   initDropdownHeaderEventListeners() {
@@ -143,18 +136,7 @@ class UI {
       el.addEventListener("click", () => this.onClickDropdownHeader(el));
     }
   }
-
-  initMaterialEventListeners() {
-    for(let el of this.materialEls) {
-      el.addEventListener("click", () => this.onSelectMaterial(el));
-    }
-  }
-
-  initColorEventListeners() {
-    for(let el of this.colorEls) {
-      el.addEventListener("click", () => this.onSelectColor(el));
-    }
-  }
+  
 
   onClickDropdownHeader(dropdownHeaderEl) {
     const dropdownArrow = dropdownHeaderEl.getElementsByClassName('chevron')[0];
@@ -168,40 +150,10 @@ class UI {
     el.classList.toggle('rotate-180');
   }
 
-  onSelectMaterial(selectedMaterialEl) {
-    this.updateMaterialsUIState(selectedMaterialEl);
-    this.updateSelectableColorsUIState(selectedMaterialEl);
-  }
-
-  updateMaterialsUIState(selectedMaterialEl) {
-    for(let el of this.materialEls) {
-      el.removeAttribute('selected');
+  initMaterialSelectorEventListeners() {
+    for(let el of this.materialSelectorEls) {
+      el.addEventListener("select", () => this.updateConfigurator());
     }
-    selectedMaterialEl.setAttribute('selected', '');
-  }
-
-  updateSelectableColorsUIState(selectedMaterialEl) {
-    for(let el of this.selectableColorsEls) {
-      el.classList.remove('active');
-    }
-    const selectedColorsEl = document.getElementsByClassName(selectedMaterialEl.id)[0];
-    selectedColorsEl.classList.add('active');
-
-    const firstColorEl = selectedColorsEl.getElementsByClassName('color')[0];
-    this.onSelectColor(firstColorEl);
-  }
- 
-  onSelectColor(selectedColorEl) {
-    this.updateColorUIState(selectedColorEl);
-  }
-
-  updateColorUIState(selectedColorEl) {
-    for(let el of this.colorEls) {
-      el.removeAttribute('selected');
-    }
-    selectedColorEl.setAttribute('selected', '');
-
-    this.updateConfigurator();
   }
 
   // this will be changed with the actual logic, right now it's just random

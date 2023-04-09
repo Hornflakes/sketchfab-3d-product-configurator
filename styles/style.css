@@ -15,10 +15,6 @@ h1 {
     font-size: 18px;
 }
 
-h2 {
-    font-size: 16px;
-}
-
 b {
     font-weight: bold;
 }
@@ -72,31 +68,4 @@ form {
 .chevron {
     width: 32px;
     height: 32px;
-}
-
-section {
-    padding: 20px;
-
-    display: flex;
-    flex-direction: column;
-    gap: 16px;
-}
-
-.images {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 12px;
-}
-
-selectable-image {
-    height: 72px;
-    width: 72px;
-}
-
-.colors {
-    display: none;
-}
-
-.colors.active {
-    display: flex;
 }

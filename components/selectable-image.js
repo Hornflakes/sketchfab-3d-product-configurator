@@ -1,60 +1,68 @@
-const style = document.createElement('style');
-style.textContent = `
-  #selectable-image {
-    position: relative;
-    cursor: pointer;
-    line-height: 0;
-    width: 100%;
-    height: 100%;
-  }
-
-  img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    border-radius: 5px;
-  }
-
-  #grayscaler {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    border-radius: 5px;
-
-    display: none;
-    background: rgba(0, 0, 0, 0.25);
-  }
-
-  #checkmark {
-    position: absolute;
-    top: 33%;
-    left: 33%;
-    width: 33%;
-    height: 33%;
-  }
-
-  #selectable-image.selected > #grayscaler,
-  #selectable-image:hover > #grayscaler {
-    display: block;
-  }
-`
-
-const template = document.createElement('template');
-template.innerHTML = `
-  <div id="selectable-image">
-    <img id="image" />
-    <div id="grayscaler">
-      <img id="checkmark" />
-    </div>
-  </div>
-`;
-
 class SelectableImage extends HTMLElement {
+  template;
+  style;
 
   constructor() {
     super();
+    this.initTemplate();
+    this.initStyle();
+  }
+
+  initTemplate() {
+    this.template = document.createElement('template');
+    this.template.innerHTML = `
+      <div id="selectable-image">
+        <img id="image" />
+        <div id="grayscaler">
+          <img id="checkmark" />
+        </div>
+      </div>
+    `;
+  }
+
+  initStyle() {
+    this.style = document.createElement('style');
+    this.style.textContent = `
+      #selectable-image {
+        position: relative;
+        cursor: pointer;
+        line-height: 0;
+        width: 100%;
+        height: 100%;
+      }
+    
+      img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        border-radius: 5px;
+      }
+    
+      #grayscaler {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        border-radius: 5px;
+    
+        display: none;
+        background: rgba(0, 0, 0, 0.25);
+      }
+    
+      #checkmark {
+        position: absolute;
+        top: 33%;
+        left: 33%;
+        width: 33%;
+        height: 33%;
+      }
+    
+      #selectable-image.selected > #grayscaler,
+      #selectable-image:hover > #grayscaler {
+        display: block;
+      }
+    `
   }
 
   static get observedAttributes() {
@@ -79,17 +87,17 @@ class SelectableImage extends HTMLElement {
     });
     this.setImageSource();
     this.setCheckmarkSource();
-    this.shadowRoot.appendChild(template.content.cloneNode(true));
-    this.shadowRoot.append(style.cloneNode(true));
+    this.shadowRoot.appendChild(this.template.content);
+    this.shadowRoot.append(this.style);
   }
 
   setImageSource() {
-    const el = template.content.getElementById('image');
+    const el = this.template.content.getElementById('image');
     el.src = this['image-src'];
   }
 
   setCheckmarkSource() {
-    const el = template.content.getElementById('checkmark');
+    const el = this.template.content.getElementById('checkmark');
     el.src = this['checkmark-src'];
   }
 }
