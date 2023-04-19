@@ -26,6 +26,7 @@ class Configurator {
 						this.getTextures();
 						this.getMaterials();
             this.getNodes();
+            this.addTexture('https://i.imgur.com/5DIWOMD.png');
 					}
 				);
 			}
@@ -40,6 +41,12 @@ class Configurator {
 				});
 			}
     });
+  }
+
+  addTexture = (texture) => {
+    this.api.addTexture(texture, (err,) => {
+      if(!err) this.getTextures();
+    })
   }
 
 	getMaterials = () => {
