@@ -23,37 +23,36 @@ class Configurator {
 				this.api.addEventListener(
 					"viewerready",
 					() => {
+            this.setHDTextureQuality();
 						this.getTextures();
 						this.getMaterials();
             this.getNodes();
-            this.addTexture('https://i.imgur.com/5DIWOMD.png');
 					}
 				);
 			}
 		});
 	}
 
+  setHDTextureQuality = () => {
+    this.api.setTextureQuality('hd');
+  }
+
   getTextures = () => {
     this.api.getTextureList((err, textures) => {
 			if (!err) {
 				textures.forEach((t) => {
-					this.textures[t.uid] = t;
+					this.textures[t.name] = t;
 				});
 			}
     });
   }
-
-  addTexture = (texture) => {
-    this.api.addTexture(texture, (err,) => {
-      if(!err) this.getTextures();
-    })
-  }
-
+  
 	getMaterials = () => {
 		this.api.getMaterialList(
 			(err, materials) => {
 				if (!err) {
 					materials.forEach((m) => {
+            if(m.name.includes('Material')) return;
 						this.materials[m.id] = m;
 						this.nodes[m.id] = [];
 					})
@@ -64,21 +63,11 @@ class Configurator {
   getNodes = () => {
     this.api.getNodeMap((err, nodes) => {
       if(!err) {
-				this.groupNodesByMaterial(nodes);
         this.initUI();
-
 				this.consoleLog();
       }
 		});
   }
-
-	groupNodesByMaterial(nodes) {
-		for (const [,node] of Object.entries(nodes)) {
-			if(node.materialID) {
-				this.nodes[node.materialID].push(node);
-			}
-		}
-	}
 
   initUI() {
     this.ui = new UI(this);
@@ -86,9 +75,12 @@ class Configurator {
   }
 
   consoleLog() {
-    console.log('nodes -->', this.nodes);
-    console.log('materials -->', this.materials);
-    console.log('textures -->', this.textures);
+    console.log('nodes', this.nodes);
+    console.log('nodes.length =', Object.keys(this.nodes).length);
+    console.log('materials', this.materials);
+    console.log('materials.length =', Object.keys(this.materials).length);
+    console.log('textures', this.textures);
+    console.log('textures.length =', Object.keys(this.textures).length);
   }
 
 	setMaterialTexture(materialId, textureId) {
@@ -161,10 +153,10 @@ class UI {
     );
 
     const spatar = document.querySelector('.spatar');
-    spatar.setAttribute('material-id', materialIds[2]);
+    spatar.setAttribute('material-id', materialIds[0]);
 
     const sezut = document.querySelector('.sezut');
-    sezut.setAttribute('material-id', materialIds[1]);
+    sezut.setAttribute('material-id', materialIds[2]);
   }
 
   initEventListeners() {
@@ -208,26 +200,16 @@ class UI {
       el.addEventListener("select", (e) => this.updateConfigurator(e));
     }
   }
-
-  // this will be changed with the actual logic, right now it's just random
+  
   updateConfigurator(event) {
-    const materialId = event.detail.materialId;
-    const textureIds = Object.entries(this.configurator.textures)
-      .reduce((acc, [id, _]) => {
-        acc.push(id); 
-        return acc;
-      }, 
-      []
-    );
-
-    this.configurator.setMaterialTexture(materialId, textureIds[Math.floor(Math.random() * textureIds.length)]);
+    this.configurator.setMaterialTexture(event.detail.materialId,  event.detail.textureId);
   }
 }
 
 
 /** INITIALIZING THE CONFIGURATOR */
 
-const urlId = 'a24448725afb49159cb1bc7afea816ac';
+const urlId = 'be502576c6d044309c5e72ebbb7eafcb';
 const configurator = new Configurator(urlId);
 
 configurator.init();
