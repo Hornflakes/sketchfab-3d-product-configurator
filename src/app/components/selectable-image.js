@@ -9,7 +9,7 @@ class SelectableImage extends HTMLElement {
   }
 
   initTemplate() {
-    this.template = document.createElement('template');
+    this.template = document.createElement("template");
     this.template.innerHTML = `
       <div id="selectable-image">
         <img id="image" />
@@ -21,7 +21,7 @@ class SelectableImage extends HTMLElement {
   }
 
   initStyle() {
-    this.style = document.createElement('style');
+    this.style = document.createElement("style");
     this.style.textContent = `
       #selectable-image {
         position: relative;
@@ -62,28 +62,28 @@ class SelectableImage extends HTMLElement {
       #selectable-image:hover > #grayscaler {
         display: block;
       }
-    `
+    `;
   }
 
   static get observedAttributes() {
-    return ['image-src', 'checkmark-src', 'selected'];
+    return ["image-src", "checkmark-src", "selected"];
   }
 
   attributeChangedCallback(attributeName, oldValue, newValue) {
     if (oldValue === newValue) return;
     this[attributeName] = newValue;
 
-    if(attributeName === 'selected') this.updateUIState();
+    if (attributeName === "selected") this.updateUIState();
   }
 
   updateUIState() {
-    const el = this.shadowRoot.getElementById('selectable-image');
-    el.classList.toggle('selected');
+    const el = this.shadowRoot.getElementById("selectable-image");
+    el.classList.toggle("selected");
   }
 
   connectedCallback() {
     this.attachShadow({
-      mode: 'open'
+      mode: "open",
     });
     this.setImageSource();
     this.setCheckmarkSource();
@@ -92,13 +92,13 @@ class SelectableImage extends HTMLElement {
   }
 
   setImageSource() {
-    const el = this.template.content.getElementById('image');
-    el.src = this['image-src'];
+    const el = this.template.content.getElementById("image");
+    el.src = this["image-src"];
   }
 
   setCheckmarkSource() {
-    const el = this.template.content.getElementById('checkmark');
-    el.src = this['checkmark-src'];
+    const el = this.template.content.getElementById("checkmark");
+    el.src = this["checkmark-src"];
   }
 }
-window.customElements.define('selectable-image', SelectableImage);
+window.customElements.define("selectable-image", SelectableImage);

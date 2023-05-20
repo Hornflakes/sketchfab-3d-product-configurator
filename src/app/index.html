@@ -5,16 +5,24 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
         <title>Duval Sketchfab Viewer</title>
 
-        <link rel="stylesheet" type="text/css" href="styles/reset.css" />
-        <link rel="stylesheet" type="text/css" href="styles/style.css" />
+        <base href="../" />
 
-        <script type="text/javascript" src="components/selectable-image.js"></script>
-        <script type="text/javascript" src="components/material-selector.js"></script>
+        <link rel="stylesheet" type="text/css" href="styles/reset.css" />
+        <link rel="stylesheet" type="text/css" href="styles/styles.css" />
+
+        <script type="text/javascript" src="app/components/selectable-image.js"></script>
+        <script type="text/javascript" src="app/components/material-selector.js"></script>
         <script type="text/javascript" src="https://static.sketchfab.com/api/sketchfab-viewer-1.12.1.js"></script>
     </head>
 
     <body>
-        <iframe id="sketchfab-viewer" allowfullscreen mozallowfullscreen="true" webkitallowfullscreen="true" frameborder="0"></iframe>
+        <iframe
+            id="sketchfab-viewer"
+            allowfullscreen
+            mozallowfullscreen="true"
+            webkitallowfullscreen="true"
+            frameborder="0"
+        ></iframe>
         <form>
             <div class="dropdown">
                 <header id="spatar" class="dropdown-header active">
@@ -39,5 +47,5 @@
         </form>
     </body>
 
-    <script type="text/javascript" src="scripts/script.js"></script>
+    <script type="text/javascript" src="app/index.js"></script>
 </html>

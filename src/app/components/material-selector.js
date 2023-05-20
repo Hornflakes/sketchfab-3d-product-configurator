@@ -9,7 +9,7 @@ class MaterialSelector extends HTMLElement {
   }
 
   initTemplate() {
-    this.template = document.createElement('template');
+    this.template = document.createElement("template");
     this.template.innerHTML = `
       <section>
         <h2>
@@ -468,7 +468,7 @@ class MaterialSelector extends HTMLElement {
   }
 
   initStyle() {
-    this.style = document.createElement('style');
+    this.style = document.createElement("style");
     this.style.textContent = `
       *:where(
               :not(html, iframe, canvas, img, svg, video, audio):not(svg *, symbol *)
@@ -519,19 +519,19 @@ class MaterialSelector extends HTMLElement {
   }
 
   get materialEls() {
-    return this.shadowRoot.querySelectorAll('.material');
+    return this.shadowRoot.querySelectorAll(".material");
   }
 
   get selectableColorsEls() {
-    return this.shadowRoot.querySelectorAll('.colors');
+    return this.shadowRoot.querySelectorAll(".colors");
   }
 
   get colorEls() {
-    return this.shadowRoot.querySelectorAll('.color');
+    return this.shadowRoot.querySelectorAll(".color");
   }
 
   static get observedAttributes() {
-    return ['material-id', 'checkmark-src'];;
+    return ["material-id", "checkmark-src"];
   }
 
   attributeChangedCallback(attributeName, oldValue, newValue) {
@@ -541,26 +541,26 @@ class MaterialSelector extends HTMLElement {
 
   connectedCallback() {
     this.attachShadow({
-      mode: 'open'
+      mode: "open",
     });
     this.setImagesCheckmarkSource();
     this.shadowRoot.appendChild(this.template.content);
     this.shadowRoot.append(this.style);
-    
+
     this.selectFirstMaterial();
     this.initEventListeners();
   }
 
   setImagesCheckmarkSource() {
-    const selectableImageEls = this.template.content.querySelectorAll('selectable-image')
-    for(let el of selectableImageEls) {
-      el.setAttribute('checkmark-src', this['checkmark-src'])
+    const selectableImageEls = this.template.content.querySelectorAll("selectable-image");
+    for (let el of selectableImageEls) {
+      el.setAttribute("checkmark-src", this["checkmark-src"]);
     }
   }
 
   selectFirstMaterial() {
-      const el = this.materialEls[0];
-      this.onSelectMaterial(el);
+    const el = this.materialEls[0];
+    this.onSelectMaterial(el);
   }
 
   initEventListeners() {
@@ -569,13 +569,13 @@ class MaterialSelector extends HTMLElement {
   }
 
   initMaterialEventListeners() {
-    for(let el of this.materialEls) {
+    for (let el of this.materialEls) {
       el.addEventListener("click", () => this.onSelectMaterial(el));
     }
   }
 
   initColorEventListeners() {
-    for(let el of this.colorEls) {
+    for (let el of this.colorEls) {
       el.addEventListener("click", () => this.onSelectColor(el));
     }
   }
@@ -586,42 +586,44 @@ class MaterialSelector extends HTMLElement {
   }
 
   updateMaterialsUIState(selectedMaterialEl) {
-    for(let el of this.materialEls) {
-      el.removeAttribute('selected');
+    for (let el of this.materialEls) {
+      el.removeAttribute("selected");
     }
-    selectedMaterialEl.setAttribute('selected', '');
+    selectedMaterialEl.setAttribute("selected", "");
   }
 
   updateSelectableColorsUIState(selectedMaterialEl) {
-    for(let el of this.selectableColorsEls) {
-      el.classList.remove('active');
+    for (let el of this.selectableColorsEls) {
+      el.classList.remove("active");
     }
-    const selectedColorsEl = this.shadowRoot.querySelector('.' + selectedMaterialEl.id);
-    selectedColorsEl.classList.add('active');
+    const selectedColorsEl = this.shadowRoot.querySelector("." + selectedMaterialEl.id);
+    selectedColorsEl.classList.add("active");
 
-    const firstColorEl = selectedColorsEl.querySelector('.color');
+    const firstColorEl = selectedColorsEl.querySelector(".color");
     this.onSelectColor(firstColorEl);
   }
- 
+
   onSelectColor(selectedColorEl) {
     this.updateColorUIState(selectedColorEl);
 
-    const imageSrc = selectedColorEl['image-src'];
-    const textureId = imageSrc.slice(imageSrc.lastIndexOf('/') + 1);
+    const imageSrc = selectedColorEl["image-src"];
+    const textureId = imageSrc.slice(imageSrc.lastIndexOf("/") + 1);
     this.dispatchSelectEvent(textureId);
   }
 
   updateColorUIState(selectedColorEl) {
-    for(let el of this.colorEls) {
-      el.removeAttribute('selected');
+    for (let el of this.colorEls) {
+      el.removeAttribute("selected");
     }
-    selectedColorEl.setAttribute('selected', '');
+    selectedColorEl.setAttribute("selected", "");
   }
 
   dispatchSelectEvent(textureId) {
-    this.dispatchEvent(new CustomEvent("select", {
-      detail: { materialId: this['material-id'], textureId: textureId }
-    }));
+    this.dispatchEvent(
+      new CustomEvent("select", {
+        detail: { materialId: this["material-id"], textureId: textureId },
+      })
+    );
   }
 }
-window.customElements.define('material-selector', MaterialSelector);
+window.customElements.define("material-selector", MaterialSelector);
