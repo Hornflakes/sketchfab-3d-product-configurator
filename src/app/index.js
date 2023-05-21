@@ -10,7 +10,7 @@ class Configurator {
   }
 
   init() {
-    const iframe = document.getElementById("sketchfab-viewer");
+    const iframe = document.getElementById('sketchfab-viewer');
     const viewer = new Sketchfab(iframe);
 
     viewer.init(this.urlId, {
@@ -20,7 +20,7 @@ class Configurator {
       success: (api) => {
         this.api = api;
         this.api.start();
-        this.api.addEventListener("viewerready", () => {
+        this.api.addEventListener('viewerready', () => {
           this.setHDTextureQuality();
           this.getTextures();
           this.getMaterials();
@@ -31,7 +31,7 @@ class Configurator {
   }
 
   setHDTextureQuality = () => {
-    this.api.setTextureQuality("hd");
+    this.api.setTextureQuality('hd');
   };
 
   getTextures = () => {
@@ -48,7 +48,7 @@ class Configurator {
     this.api.getMaterialList((err, materials) => {
       if (!err) {
         materials.forEach((m) => {
-          if (m.name.includes("Material")) return;
+          if (m.name.includes('Material')) return;
           this.materials[m.id] = m;
           this.nodes[m.id] = [];
         });
@@ -59,11 +59,20 @@ class Configurator {
   getNodes = () => {
     this.api.getNodeMap((err, nodes) => {
       if (!err) {
+        this.groupNodesByMaterial(nodes);
         this.initUI();
         this.consoleLog();
       }
     });
   };
+
+  groupNodesByMaterial(nodes) {
+    for (const [, node] of Object.entries(nodes)) {
+      if (this.nodes[node.materialID]) {
+        this.nodes[node.materialID].push(node);
+      }
+    }
+  }
 
   initUI() {
     this.ui = new UI(this);
@@ -71,12 +80,12 @@ class Configurator {
   }
 
   consoleLog() {
-    console.log("nodes", this.nodes);
-    console.log("nodes.length =", Object.keys(this.nodes).length);
-    console.log("materials", this.materials);
-    console.log("materials.length =", Object.keys(this.materials).length);
-    console.log("textures", this.textures);
-    console.log("textures.length =", Object.keys(this.textures).length);
+    console.log('nodes', this.nodes);
+    console.log('nodes.length =', Object.keys(this.nodes).length);
+    console.log('materials', this.materials);
+    console.log('materials.length =', Object.keys(this.materials).length);
+    console.log('textures', this.textures);
+    console.log('textures.length =', Object.keys(this.textures).length);
   }
 
   setMaterialTexture(materialId, textureId) {
@@ -122,10 +131,10 @@ class UI {
   }
 
   getScrollbarWidth() {
-    let scrollBox = document.createElement("div");
-    scrollBox.style.position = "absolute";
-    scrollBox.style.visibility = "hidden";
-    scrollBox.style.overflow = "scroll";
+    let scrollBox = document.createElement('div');
+    scrollBox.style.position = 'absolute';
+    scrollBox.style.visibility = 'hidden';
+    scrollBox.style.overflow = 'scroll';
 
     document.body.appendChild(scrollBox);
     this.scrollBarWidth = scrollBox.offsetWidth - scrollBox.clientWidth;
@@ -133,27 +142,23 @@ class UI {
   }
 
   getHTMLElements() {
-    this.dropdownHeaderEls = document.getElementsByClassName("dropdown-header");
-    this.materialSelectorEls =
-      document.getElementsByTagName("material-selector");
-    this.formEl = document.querySelector("form");
-    this.updateFormStyle();
+    this.dropdownHeaderEls = document.getElementsByClassName('dropdown-header');
+    this.materialSelectorEls = document.getElementsByTagName('material-selector');
+    this.formEl = document.querySelector('form');
+    this.updateFormElWidth();
   }
 
   setMaterialIdAttributes() {
-    const materialIds = Object.entries(this.configurator.materials).reduce(
-      (acc, [id, _]) => {
-        acc.push(id);
-        return acc;
-      },
-      []
-    );
+    const materialIds = Object.entries(this.configurator.materials).reduce((acc, [id, _]) => {
+      acc.push(id);
+      return acc;
+    }, []);
 
-    const spatar = document.querySelector(".spatar");
-    spatar.setAttribute("material-id", materialIds[0]);
+    const back = document.querySelector('.back');
+    back.setAttribute('material-id', materialIds[0]);
 
-    const sezut = document.querySelector(".sezut");
-    sezut.setAttribute("material-id", materialIds[2]);
+    const seat = document.querySelector('.seat');
+    seat.setAttribute('material-id', materialIds[2]);
   }
 
   initEventListeners() {
@@ -163,51 +168,48 @@ class UI {
 
   initDropdownHeaderEventListeners() {
     for (let el of this.dropdownHeaderEls) {
-      el.addEventListener("click", () => this.onClickDropdownHeader(el));
+      el.addEventListener('click', () => this.handleDropdownHeaderClick(el));
     }
   }
 
-  onClickDropdownHeader(dropdownHeaderEl) {
-    this.updateDropdownUIState(dropdownHeaderEl);
-    this.updateFormStyle();
+  handleDropdownHeaderClick(dropdownHeaderEl) {
+    this.toggleDropdownEl(dropdownHeaderEl);
+    this.updateFormElWidth();
   }
 
-  updateDropdownUIState(dropdownHeaderEl) {
-    dropdownHeaderEl.classList.toggle("active");
+  toggleDropdownEl(dropdownHeaderEl) {
+    dropdownHeaderEl.classList.toggle('active');
 
-    const dropdownItemsEl = document.querySelector("." + dropdownHeaderEl.id);
-    dropdownItemsEl.classList.toggle("hidden");
+    const dropdownItemsEl = document.querySelector('.' + dropdownHeaderEl.id);
+    dropdownItemsEl.classList.toggle('hidden');
   }
 
-  updateFormStyle() {
+  updateFormElWidth() {
     if (this.formEl.offsetWidth > this.formEl.clientWidth) {
-      this.setFormWidth(this.formWidth + this.scrollBarWidth);
+      this.setFormElWidthStyle(this.formWidth + this.scrollBarWidth);
     } else {
-      this.setFormWidth(this.formWidth);
+      this.setFormElWidthStyle(this.formWidth);
     }
   }
 
-  setFormWidth(width) {
-    this.formEl.style.width = width + "px";
+  setFormElWidthStyle(width) {
+    this.formEl.style.width = width + 'px';
   }
 
   initMaterialSelectorEventListeners() {
     for (let el of this.materialSelectorEls) {
-      el.addEventListener("select", (e) => this.updateConfigurator(e));
+      el.addEventListener('select', (e) => this.selectMaterial(e));
     }
   }
 
-  updateConfigurator(event) {
-    this.configurator.setMaterialTexture(
-      event.detail.materialId,
-      event.detail.textureId
-    );
+  selectMaterial(event) {
+    this.configurator.setMaterialTexture(event.detail.materialId, event.detail.textureId);
   }
 }
 
 /** INITIALIZING THE CONFIGURATOR */
 
-const urlId = "be502576c6d044309c5e72ebbb7eafcb";
+const urlId = 'be502576c6d044309c5e72ebbb7eafcb';
 const configurator = new Configurator(urlId);
 
 configurator.init();
