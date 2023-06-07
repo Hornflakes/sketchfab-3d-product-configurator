@@ -24,7 +24,7 @@ b {
     font-weight: bold;
 }
 
-iframe {
+sketchfab-viewer {
     height: 100%;
 
     display: flex;

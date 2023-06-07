@@ -1,4 +1,4 @@
-class MaterialSelector extends HTMLElement {
+class TextureSelector extends HTMLElement {
   template;
   style;
 
@@ -531,7 +531,7 @@ class MaterialSelector extends HTMLElement {
   }
 
   static get observedAttributes() {
-    return ['material-id', 'checkmark-src'];
+    return ['checkmark-src'];
   }
 
   attributeChangedCallback(attributeName, oldValue, newValue) {
@@ -621,9 +621,9 @@ class MaterialSelector extends HTMLElement {
   dispatchSelectEvent(textureId) {
     this.dispatchEvent(
       new CustomEvent('select', {
-        detail: { materialId: this['material-id'], textureId: textureId },
+        detail: { textureId: textureId },
       })
     );
   }
 }
-window.customElements.define('material-selector', MaterialSelector);
+window.customElements.define('texture-selector', TextureSelector);
