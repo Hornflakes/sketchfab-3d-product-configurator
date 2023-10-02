@@ -19,91 +19,91 @@ class TextureSelector extends HTMLElement {
         <div class="images">
           <selectable-image
             id="angel"
-            image-src="assets/images/upholstery/Angel_2746.jpg"
+            image-src="assets/upholstery/Angel_2746.jpg"
             class="material"
           ></selectable-image>
 
           <selectable-image
             id="baloo"
-            image-src="assets/images/upholstery/Baloo_2073.jpg"
+            image-src="assets/upholstery/Baloo_2073.jpg"
             class="material"
           ></selectable-image>
 
           <selectable-image
             id="bunny"
-            image-src="assets/images/upholstery/Bunny_203.01.jpg"
+            image-src="assets/upholstery/Bunny_203.01.jpg"
             class="material"
           ></selectable-image>
 
           <selectable-image
             id="casablanca"
-            image-src="assets/images/upholstery/Casablanca_2312.jpg"
+            image-src="assets/upholstery/Casablanca_2312.jpg"
             class="material"
           ></selectable-image>
 
           <selectable-image
             id="dream-velvet"
-            image-src="assets/images/upholstery/Dream_Velvet_202_39.jpg"
+            image-src="assets/upholstery/Dream_Velvet_202_39.jpg"
             class="material"
           ></selectable-image>
 
           <selectable-image
             id="eureka"
-            image-src="assets/images/upholstery/Eureka_2124.jpg"
+            image-src="assets/upholstery/Eureka_2124.jpg"
             class="material"
           ></selectable-image>
 
           <selectable-image
             id="granada"
-            image-src="assets/images/upholstery/Granada_2721.jpg"
+            image-src="assets/upholstery/Granada_2721.jpg"
             class="material"
           ></selectable-image>
 
           <selectable-image
             id="hamilton"
-            image-src="assets/images/upholstery/Hamilton_2804.jpg"
+            image-src="assets/upholstery/Hamilton_2804.jpg"
             class="material"
           ></selectable-image>
 
           <selectable-image
             id="hygge"
-            image-src="assets/images/upholstery/Hygge_2539.jpg"
+            image-src="assets/upholstery/Hygge_2539.jpg"
             class="material"
           ></selectable-image>
 
           <selectable-image
             id="kenia"
-            image-src="assets/images/upholstery/Kenia_702.jpg"
+            image-src="assets/upholstery/Kenia_702.jpg"
             class="material"
           ></selectable-image>
 
           <selectable-image
             id="kongo"
-            image-src="assets/images/upholstery/Kongo_721.jpg"
+            image-src="assets/upholstery/Kongo_721.jpg"
             class="material"
           ></selectable-image>
 
           <selectable-image
             id="magic-velvet"
-            image-src="assets/images/upholstery/Magic_Velvet_2216.jpg"
+            image-src="assets/upholstery/Magic_Velvet_2216.jpg"
             class="material"
           ></selectable-image>
 
           <selectable-image
             id="prestige"
-            image-src="assets/images/upholstery/Prestige_2762.jpg"
+            image-src="assets/upholstery/Prestige_2762.jpg"
             class="material"
           ></selectable-image>
 
           <selectable-image
             id="riviera"
-            image-src="assets/images/upholstery/Riviera_36.jpg"
+            image-src="assets/upholstery/Riviera_36.jpg"
             class="material"
           ></selectable-image>
 
           <selectable-image
             id="venus-velvet"
-            image-src="assets/images/upholstery/Venus_Velvet_2919.jpg"
+            image-src="assets/upholstery/Venus_Velvet_2919.jpg"
             class="material"
           ></selectable-image>
         </div>
@@ -116,350 +116,350 @@ class TextureSelector extends HTMLElement {
 
         <div class="images colors angel active">
           <selectable-image
-            image-src="assets/images/upholstery/Angel_2746.jpg"
+            image-src="assets/upholstery/Angel_2746.jpg"
             class="color"
           ></selectable-image>
 
           <selectable-image
-            image-src="assets/images/upholstery/Angel_2748.jpg"
+            image-src="assets/upholstery/Angel_2748.jpg"
             class="color"
           ></selectable-image>
         </div>
 
         <div class="images colors baloo">
           <selectable-image
-            image-src="assets/images/upholstery/Baloo_2073.jpg"
+            image-src="assets/upholstery/Baloo_2073.jpg"
             class="color"
           ></selectable-image>
 
           <selectable-image
-            image-src="assets/images/upholstery/Baloo_2074.jpg"
+            image-src="assets/upholstery/Baloo_2074.jpg"
             class="color"
           ></selectable-image>
 
           <selectable-image
-            image-src="assets/images/upholstery/Baloo_2084.jpg"
+            image-src="assets/upholstery/Baloo_2084.jpg"
             class="color"
           ></selectable-image>
         </div>
 
         <div class="images colors bunny">
           <selectable-image
-            image-src="assets/images/upholstery/Bunny_203.01.jpg"
+            image-src="assets/upholstery/Bunny_203.01.jpg"
             class="color"
           ></selectable-image>
         </div>
 
         <div class="images colors casablanca">
           <selectable-image
-            image-src="assets/images/upholstery/Casablanca_2312.jpg"
+            image-src="assets/upholstery/Casablanca_2312.jpg"
             class="color"
           ></selectable-image>
 
           <selectable-image
-            image-src="assets/images/upholstery/Casablanca_2316.jpg"
+            image-src="assets/upholstery/Casablanca_2316.jpg"
             class="color"
           ></selectable-image>
         </div>
 
         <div class="images colors dream-velvet">
           <selectable-image
-            image-src="assets/images/upholstery/Dream_Velvet_202_39.jpg"
+            image-src="assets/upholstery/Dream_Velvet_202_39.jpg"
             class="color"
           ></selectable-image>
         </div>
 
         <div class="images colors eureka">
           <selectable-image
-            image-src="assets/images/upholstery/Eureka_2124.jpg"
+            image-src="assets/upholstery/Eureka_2124.jpg"
             class="color"
           ></selectable-image>
 
           <selectable-image
-            image-src="assets/images/upholstery/Eureka_2131.jpg"
+            image-src="assets/upholstery/Eureka_2131.jpg"
             class="color"
           ></selectable-image>
 
           <selectable-image
-            image-src="assets/images/upholstery/Eureka_2134.jpg"
+            image-src="assets/upholstery/Eureka_2134.jpg"
             class="color"
           ></selectable-image>
 
           <selectable-image
-            image-src="assets/images/upholstery/Eureka_2143.jpg"
+            image-src="assets/upholstery/Eureka_2143.jpg"
             class="color"
           ></selectable-image>
 
           <selectable-image
-            image-src="assets/images/upholstery/Eureka_2144.jpg"
+            image-src="assets/upholstery/Eureka_2144.jpg"
             class="color"
           ></selectable-image>
 
           <selectable-image
-            image-src="assets/images/upholstery/Eureka_2145.jpg"
+            image-src="assets/upholstery/Eureka_2145.jpg"
             class="color"
           ></selectable-image>
 
           <selectable-image
-            image-src="assets/images/upholstery/Eureka_2147.jpg"
+            image-src="assets/upholstery/Eureka_2147.jpg"
             class="color"
           ></selectable-image>
 
           <selectable-image
-            image-src="assets/images/upholstery/Eureka_2148.jpg"
+            image-src="assets/upholstery/Eureka_2148.jpg"
             class="color"
           ></selectable-image>
         </div>
 
         <div class="images colors granada">
           <selectable-image
-            image-src="assets/images/upholstery/Granada_2721.jpg"
+            image-src="assets/upholstery/Granada_2721.jpg"
             class="color"
           ></selectable-image>
 
           <selectable-image
-            image-src="assets/images/upholstery/Granada_2722.jpg"
+            image-src="assets/upholstery/Granada_2722.jpg"
             class="color"
           ></selectable-image>
 
           <selectable-image
-            image-src="assets/images/upholstery/Granada_2728.jpg"
+            image-src="assets/upholstery/Granada_2728.jpg"
             class="color"
           ></selectable-image>
 
           <selectable-image
-            image-src="assets/images/upholstery/Granada_2735.jpg"
+            image-src="assets/upholstery/Granada_2735.jpg"
             class="color"
           ></selectable-image>
         </div>
 
         <div class="images colors hamilton">
           <selectable-image
-            image-src="assets/images/upholstery/Hamilton_2804.jpg"
+            image-src="assets/upholstery/Hamilton_2804.jpg"
             class="color"
           ></selectable-image>
 
           <selectable-image
-            image-src="assets/images/upholstery/Hamilton_2805.jpg"
+            image-src="assets/upholstery/Hamilton_2805.jpg"
             class="color"
           ></selectable-image>
 
           <selectable-image
-            image-src="assets/images/upholstery/Hamilton_2807.jpg"
+            image-src="assets/upholstery/Hamilton_2807.jpg"
             class="color"
           ></selectable-image>
 
           <selectable-image
-            image-src="assets/images/upholstery/Hamilton_2811.jpg"
+            image-src="assets/upholstery/Hamilton_2811.jpg"
             class="color"
           ></selectable-image>
 
           <selectable-image
-            image-src="assets/images/upholstery/Hamilton_2816.jpg"
+            image-src="assets/upholstery/Hamilton_2816.jpg"
             class="color"
           ></selectable-image>
 
           <selectable-image
-            image-src="assets/images/upholstery/Hamilton_2819.jpg"
+            image-src="assets/upholstery/Hamilton_2819.jpg"
             class="color"
           ></selectable-image>
         </div>
 
         <div class="images colors hygge">
           <selectable-image
-            image-src="assets/images/upholstery/Hygge_2539.jpg"
+            image-src="assets/upholstery/Hygge_2539.jpg"
             class="color"
           ></selectable-image>
         </div>
 
         <div class="images colors kenia">
           <selectable-image
-            image-src="assets/images/upholstery/Kenia_702.jpg"
+            image-src="assets/upholstery/Kenia_702.jpg"
             class="color"
           ></selectable-image>
 
           <selectable-image
-            image-src="assets/images/upholstery/Kenia_795.jpg"
+            image-src="assets/upholstery/Kenia_795.jpg"
             class="color"
           ></selectable-image>
         </div>
 
         <div class="images colors kongo">
           <selectable-image
-            image-src="assets/images/upholstery/Kongo_721.jpg"
+            image-src="assets/upholstery/Kongo_721.jpg"
             class="color"
           ></selectable-image>
 
           <selectable-image
-            image-src="assets/images/upholstery/Kongo_732.jpg"
+            image-src="assets/upholstery/Kongo_732.jpg"
             class="color"
           ></selectable-image>
 
           <selectable-image
-            image-src="assets/images/upholstery/Kongo_735.jpg"
+            image-src="assets/upholstery/Kongo_735.jpg"
             class="color"
           ></selectable-image>
 
           <selectable-image
-            image-src="assets/images/upholstery/Kongo_736.jpg"
+            image-src="assets/upholstery/Kongo_736.jpg"
             class="color"
           ></selectable-image>
         </div>
 
         <div class="images colors magic-velvet">
           <selectable-image
-            image-src="assets/images/upholstery/Magic_Velvet_2216.jpg"
+            image-src="assets/upholstery/Magic_Velvet_2216.jpg"
             class="color"
           ></selectable-image>
 
           <selectable-image
-            image-src="assets/images/upholstery/Magic_Velvet_2217.jpg"
+            image-src="assets/upholstery/Magic_Velvet_2217.jpg"
             class="color"
           ></selectable-image>
 
           <selectable-image
-            image-src="assets/images/upholstery/Magic_Velvet_2219.jpg"
+            image-src="assets/upholstery/Magic_Velvet_2219.jpg"
             class="color"
           ></selectable-image>
 
           <selectable-image
-            image-src="assets/images/upholstery/Magic_Velvet_2225.jpg"
+            image-src="assets/upholstery/Magic_Velvet_2225.jpg"
             class="color"
           ></selectable-image>
 
           <selectable-image
-            image-src="assets/images/upholstery/Magic_Velvet_2226.jpg"
+            image-src="assets/upholstery/Magic_Velvet_2226.jpg"
             class="color"
           ></selectable-image>
 
           <selectable-image
-            image-src="assets/images/upholstery/Magic_Velvet_2231.jpg"
+            image-src="assets/upholstery/Magic_Velvet_2231.jpg"
             class="color"
           ></selectable-image>
 
           <selectable-image
-            image-src="assets/images/upholstery/Magic_Velvet_2234.jpg"
+            image-src="assets/upholstery/Magic_Velvet_2234.jpg"
             class="color"
           ></selectable-image>
 
           <selectable-image
-            image-src="assets/images/upholstery/Magic_Velvet_2248.jpg"
+            image-src="assets/upholstery/Magic_Velvet_2248.jpg"
             class="color"
           ></selectable-image>
 
           <selectable-image
-            image-src="assets/images/upholstery/Magic_Velvet_2253.jpg"
+            image-src="assets/upholstery/Magic_Velvet_2253.jpg"
             class="color"
           ></selectable-image>
 
           <selectable-image
-            image-src="assets/images/upholstery/Magic_Velvet_2258.jpg"
+            image-src="assets/upholstery/Magic_Velvet_2258.jpg"
             class="color"
           ></selectable-image>
         </div>
 
         <div class="images colors prestige">
           <selectable-image
-            image-src="assets/images/upholstery/Prestige_2762.jpg"
+            image-src="assets/upholstery/Prestige_2762.jpg"
             class="color"
           ></selectable-image>
 
           <selectable-image
-            image-src="assets/images/upholstery/Prestige_2764.jpg"
+            image-src="assets/upholstery/Prestige_2764.jpg"
             class="color"
           ></selectable-image>
 
           <selectable-image
-            image-src="assets/images/upholstery/Prestige_2765.jpg"
+            image-src="assets/upholstery/Prestige_2765.jpg"
             class="color"
           ></selectable-image>
 
           <selectable-image
-            image-src="assets/images/upholstery/Prestige_2766.jpg"
+            image-src="assets/upholstery/Prestige_2766.jpg"
             class="color"
           ></selectable-image>
 
           <selectable-image
-            image-src="assets/images/upholstery/Prestige_2767.jpg"
+            image-src="assets/upholstery/Prestige_2767.jpg"
             class="color"
           ></selectable-image>
 
           <selectable-image
-            image-src="assets/images/upholstery/Prestige_2768.jpg"
+            image-src="assets/upholstery/Prestige_2768.jpg"
             class="color"
           ></selectable-image>
 
           <selectable-image
-            image-src="assets/images/upholstery/Prestige_2770.jpg"
+            image-src="assets/upholstery/Prestige_2770.jpg"
             class="color"
           ></selectable-image>
 
           <selectable-image
-            image-src="assets/images/upholstery/Prestige_2771.jpg"
+            image-src="assets/upholstery/Prestige_2771.jpg"
             class="color"
           ></selectable-image>
 
           <selectable-image
-            image-src="assets/images/upholstery/Prestige_2772.jpg"
+            image-src="assets/upholstery/Prestige_2772.jpg"
             class="color"
           ></selectable-image>
 
           <selectable-image
-            image-src="assets/images/upholstery/Prestige_2773.jpg"
+            image-src="assets/upholstery/Prestige_2773.jpg"
             class="color"
           ></selectable-image>
 
           <selectable-image
-            image-src="assets/images/upholstery/Prestige_2774.jpg"
+            image-src="assets/upholstery/Prestige_2774.jpg"
             class="color"
           ></selectable-image>
 
           <selectable-image
-            image-src="assets/images/upholstery/Prestige_2775.jpg"
+            image-src="assets/upholstery/Prestige_2775.jpg"
             class="color"
           ></selectable-image>
 
           <selectable-image
-            image-src="assets/images/upholstery/Prestige_2776.jpg"
+            image-src="assets/upholstery/Prestige_2776.jpg"
             class="color"
           ></selectable-image>
 
           <selectable-image
-            image-src="assets/images/upholstery/Prestige_2777.jpg"
+            image-src="assets/upholstery/Prestige_2777.jpg"
             class="color"
           ></selectable-image>
 
           <selectable-image
-            image-src="assets/images/upholstery/Prestige_2778.jpg"
+            image-src="assets/upholstery/Prestige_2778.jpg"
             class="color"
           ></selectable-image>
         </div>
 
         <div class="images colors riviera">
           <selectable-image
-            image-src="assets/images/upholstery/Riviera_36.jpg"
+            image-src="assets/upholstery/Riviera_36.jpg"
             class="color"
           ></selectable-image>
 
           <selectable-image
-            image-src="assets/images/upholstery/Riviera_41.jpg"
+            image-src="assets/upholstery/Riviera_41.jpg"
             class="color"
           ></selectable-image>
 
           <selectable-image
-            image-src="assets/images/upholstery/Riviera_51.jpg"
+            image-src="assets/upholstery/Riviera_51.jpg"
             class="color"
           ></selectable-image>
 
           <selectable-image
-            image-src="assets/images/upholstery/Riviera_56.jpg"
+            image-src="assets/upholstery/Riviera_56.jpg"
             class="color"
           ></selectable-image>
         </div>
 
         <div class="images colors venus-velvet">
           <selectable-image
-            image-src="assets/images/upholstery/Venus_Velvet_2919.jpg"
+            image-src="assets/upholstery/Venus_Velvet_2919.jpg"
             class="color"
           ></selectable-image>
         </div>
