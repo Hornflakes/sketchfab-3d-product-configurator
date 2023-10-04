@@ -32,20 +32,22 @@ class SketchfabViewer extends HTMLElement {
   }
 
   static get observedAttributes() {
-    return ['data-url-id', 'data-back-texture-id', 'data-seat-texture-id', 'data-legs-texture-id'];
+    return ['data-url-id', 'data-back-texture-id', 'data-seat-texture-id', 'data-legs-texture-id', 'texture-urls'];
   }
 
   attributeChangedCallback(attributeName, oldValue, newValue) {
     if (oldValue === newValue) return;
     this[attributeName] = newValue;
 
-    if (attributeName === 'data-url-id') this.initConfigurator(this[attributeName]);
+    if (attributeName === 'data-url-id') return;
+
+    if (attributeName === 'texture-urls') this.initConfigurator(this[attributeName]);
     else this.selectMaterial(attributeName, this[attributeName]);
   }
 
-  initConfigurator(urlId) {
-    this.configurator = new Configurator(urlId);
-    this.configurator.init();
+  initConfigurator() {
+    this.configurator = new Configurator(this['data-url-id']);
+    this.configurator.init(JSON.parse(this['texture-urls']));
   }
 
   selectMaterial(attributeName, textureId) {

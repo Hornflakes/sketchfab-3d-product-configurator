@@ -3,14 +3,14 @@ class Configurator {
   api;
   nodes = {};
   materials = {};
-  textures = {};
+  textureIdMap = {};
   materialIds = {};
 
   constructor(urlId) {
     this.urlId = urlId;
   }
 
-  init() {
+  init(textureUrls) {
     const iframe = document.querySelector('sketchfab-viewer').shadowRoot.querySelector('iframe');
     const viewer = new Sketchfab(iframe);
 
@@ -23,7 +23,7 @@ class Configurator {
         this.api.start();
         this.api.addEventListener('viewerready', () => {
           this.setHDTextureQuality();
-          this.getTextures();
+          this.setTextures(textureUrls);
           this.getMaterials();
           this.getNodes();
         });
@@ -35,15 +35,15 @@ class Configurator {
     this.api.setTextureQuality('hd');
   };
 
-  getTextures = () => {
-    this.api.getTextureList((err, textures) => {
-      if (!err) {
-        textures.forEach((t) => {
-          this.textures[t.name] = t;
-        });
-      }
+  setTextures(textureUrls) {
+    textureUrls.forEach((url) => {
+      this.api.addTexture(`https://i.imgur.com/Ua9ImIr.jpg`, (err, uid) => {
+        if (!err) {
+          this.textureIdMap[url] = uid;
+        }
+      });
     });
-  };
+  }
 
   getMaterials = () => {
     this.api.getMaterialList((err, materials) => {
@@ -63,9 +63,9 @@ class Configurator {
       acc.push(id);
       return acc;
     }, []);
-    this.materialIds.backMaterialId = materialIds[0];
-    this.materialIds.legsMaterialId = materialIds[1];
-    this.materialIds.seatMaterialId = materialIds[2];
+    this.materialIds.backMaterialId = materialIds[1];
+    this.materialIds.legsMaterialId = materialIds[2];
+    this.materialIds.seatMaterialId = materialIds[3];
   }
 
   getNodes = () => {
@@ -90,19 +90,22 @@ class Configurator {
     console.log('nodes.length =', Object.keys(this.nodes).length);
     console.log('materials', this.materials);
     console.log('materials.length =', Object.keys(this.materials).length);
-    console.log('textures', this.textures);
-    console.log('textures.length =', Object.keys(this.textures).length);
   }
 
   setMaterialTexture(materialId, textureId) {
     const material = this.materials[materialId];
-    const texture = this.textures[textureId];
 
-    material.channels.AlbedoPBR.enable = true;
-    material.channels.AlbedoPBR.texture = texture;
-    material.channels.AlbedoPBR.color = false;
+    this.api.getTextureList((err, textures) => {
+      if (!err) {
+        const texture = textures.find((t) => t.uid === this.textureIdMap[textureId]);
 
-    this.api.setMaterial(material);
+        material.channels.AlbedoPBR.enable = true;
+        material.channels.AlbedoPBR.texture = texture;
+        material.channels.AlbedoPBR.color = false;
+
+        this.api.setMaterial(material);
+      }
+    });
   }
 
   showNode(id) {

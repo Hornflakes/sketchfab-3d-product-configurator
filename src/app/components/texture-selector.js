@@ -543,16 +543,28 @@ class TextureSelector extends HTMLElement {
     this.attachShadow({
       mode: 'open',
     });
-    this.setImagesCheckmarkSrc();
+
+    const selectableImageEls = this.template.content.querySelectorAll('selectable-image');
+    this.setImagesCheckmarkSrc(selectableImageEls);
+
     this.shadowRoot.appendChild(this.template.content);
     this.shadowRoot.append(this.style);
 
+    this.setTextureUrlsAttribute(selectableImageEls);
     this.selectFirstMaterial();
     this.initEventListeners();
   }
 
-  setImagesCheckmarkSrc() {
-    const selectableImageEls = this.template.content.querySelectorAll('selectable-image');
+  setTextureUrlsAttribute(selectableImageEls) {
+    const textureUrls = [];
+    for (let el of selectableImageEls) {
+      const imageSrc = el.getAttribute('image-src');
+      textureUrls.push(imageSrc.slice(imageSrc.lastIndexOf('/') + 1));
+    }
+    this.setAttribute('texture-urls', JSON.stringify(textureUrls));
+  }
+
+  setImagesCheckmarkSrc(selectableImageEls) {
     for (let el of selectableImageEls) {
       el.setAttribute('checkmark-src', this['checkmark-src']);
     }

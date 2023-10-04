@@ -12,28 +12,25 @@ let scrollBarWidth;
   document.body.appendChild(scrollBox);
   scrollBarWidth = scrollBox.offsetWidth - scrollBox.clientWidth;
   document.body.removeChild(scrollBox);
-}
 
-{
   const dropdownHeaderEls = document.getElementsByClassName('dropdown-header');
   for (let el of dropdownHeaderEls) {
     el.addEventListener('click', () => handleDropdownHeaderClick(el));
   }
 }
 
-{
-  const backTextureSelectors = document.getElementsByClassName('back');
-  for (let el of backTextureSelectors) {
-    el.addEventListener('select', (e) => selectBackTexture(e));
-  }
-
-  const seatTextureSelectors = document.getElementsByClassName('seat');
-  for (let el of seatTextureSelectors) {
-    el.addEventListener('select', (e) => selectSeatTexture(e));
-  }
+const backTextureSelectors = document.getElementsByClassName('back');
+for (let el of backTextureSelectors) {
+  el.addEventListener('select', (e) => selectBackTexture(e));
 }
 
-sketchfabViewerEl.setAttribute('data-url-id', 'be502576c6d044309c5e72ebbb7eafcb');
+const seatTextureSelectors = document.getElementsByClassName('seat');
+for (let el of seatTextureSelectors) {
+  el.addEventListener('select', (e) => selectSeatTexture(e));
+}
+
+sketchfabViewerEl.setAttribute('data-url-id', '1ea391ec7c3440f18c2a6a7be3fdb184');
+sketchfabViewerEl.setAttribute('texture-urls', backTextureSelectors[0].getAttribute('texture-urls'));
 
 const handleDropdownHeaderClick = (dropdownHeaderEl) => {
   toggleDropdownEl(dropdownHeaderEl);
