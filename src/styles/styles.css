@@ -27,7 +27,7 @@ b {
     font-weight: bold;
 }
 
-sketchfab-viewer {
+model-viewer {
     height: 100%;
 
     display: flex;

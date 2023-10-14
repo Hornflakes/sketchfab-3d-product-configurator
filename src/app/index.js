@@ -1,4 +1,4 @@
-const sketchfabViewerEl = document.querySelector('sketchfab-viewer');
+const modelViewerEl = document.querySelector('model-viewer');
 const formEl = document.querySelector('form');
 const formWidth = 532;
 let scrollBarWidth;
@@ -26,7 +26,7 @@ for (let el of backTextureSelectors) {
 
 const hideBackCheckbox = document.querySelector('input');
 hideBackCheckbox.addEventListener('click', () => {
-  sketchfabViewerEl.setAttribute(
+  modelViewerEl.setAttribute(
     'data-toggled-material',
     JSON.stringify({ [backMaterialName]: !hideBackCheckbox.checked })
   );
@@ -37,12 +37,15 @@ for (let el of seatTextureSelectors) {
   el.addEventListener('select', (e) => selectSeatTexture(e));
 }
 
-sketchfabViewerEl.setAttribute('data-sketchfab-url-id', '1ea391ec7c3440f18c2a6a7be3fdb184');
-sketchfabViewerEl.setAttribute('data-base-textures-url', 'https://hornflakes.github.io/sketchfab-viewer/src/assets');
+modelViewerEl.setAttribute('data-url-id', '1ea391ec7c3440f18c2a6a7be3fdb184');
+modelViewerEl.setAttribute(
+  'data-base-textures-url',
+  'https://hornflakes.github.io/sketchfab-3d-product-configurator/src/assets'
+);
 
 const backMaterialName = 'Velvet_Grey.003';
 const seatMaterialName = 'Velvet_Grey.001';
-sketchfabViewerEl.setAttribute(
+modelViewerEl.setAttribute(
   'data-material-texture-urls',
   JSON.stringify({
     [backMaterialName]: JSON.parse(backTextureSelectors[0].getAttribute('texture-urls')),
@@ -75,14 +78,14 @@ const setFormElWidthStyle = (width) => {
 };
 
 const selectBackTexture = (e) => {
-  sketchfabViewerEl.setAttribute(
+  modelViewerEl.setAttribute(
     'data-selected-material-texture-url',
     JSON.stringify({ [backMaterialName]: e.detail.textureUrl })
   );
 };
 
 const selectSeatTexture = (e) => {
-  sketchfabViewerEl.setAttribute(
+  modelViewerEl.setAttribute(
     'data-selected-material-texture-url',
     JSON.stringify({ [seatMaterialName]: e.detail.textureUrl })
   );

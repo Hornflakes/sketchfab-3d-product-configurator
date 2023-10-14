@@ -1,5 +1,5 @@
 class Configurator {
-  sketchfabUrlId;
+  modelUrlId;
   baseTexturesUrl;
   api;
   textureUidMap = {};
@@ -7,16 +7,16 @@ class Configurator {
   nodes = {};
   materialIdMap;
 
-  constructor(sketchfabUrlId, baseTexturesUrl) {
-    this.sketchfabUrlId = sketchfabUrlId;
+  constructor(modelUrlId, baseTexturesUrl) {
+    this.modelUrlId = modelUrlId;
     this.baseTexturesUrl = baseTexturesUrl;
   }
 
   init(materialTextureUrls) {
-    const iframe = document.querySelector('sketchfab-viewer').shadowRoot.querySelector('iframe');
+    const iframe = document.querySelector('model-viewer').shadowRoot.querySelector('iframe');
     const viewer = new Sketchfab(iframe);
 
-    viewer.init(this.sketchfabUrlId, {
+    viewer.init(this.modelUrlId, {
       ui_infos: 0,
       ui_controls: 0,
       graph_optimizer: 0,

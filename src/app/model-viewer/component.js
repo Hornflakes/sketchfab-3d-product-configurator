@@ -1,4 +1,4 @@
-class SketchfabViewer extends HTMLElement {
+class ModelViewer extends HTMLElement {
   template;
   style;
   configurator;
@@ -13,7 +13,7 @@ class SketchfabViewer extends HTMLElement {
     this.template = document.createElement('template');
     this.template.innerHTML = `
       <iframe
-        id="sketchfab-viewer"
+        id="model-viewer"
         allowfullscreen
         mozallowfullscreen="true"
         webkitallowfullscreen="true"
@@ -33,7 +33,7 @@ class SketchfabViewer extends HTMLElement {
 
   static get observedAttributes() {
     return [
-      'data-sketchfab-url-id',
+      'data-url-id',
       'data-base-textures-url',
       'data-material-texture-urls',
       'data-selected-material-texture-url',
@@ -45,7 +45,7 @@ class SketchfabViewer extends HTMLElement {
     if (oldValue === newValue) return;
     this[attributeName] = newValue;
 
-    if (attributeName === 'data-sketchfab-url-id') return;
+    if (attributeName === 'data-url-id') return;
     if (attributeName === 'data-base-texture-url') return;
 
     if (attributeName === 'data-material-texture-urls') this.initConfigurator();
@@ -54,7 +54,7 @@ class SketchfabViewer extends HTMLElement {
   }
 
   initConfigurator() {
-    this.configurator = new Configurator(this['data-sketchfab-url-id'], this['data-base-textures-url']);
+    this.configurator = new Configurator(this['data-url-id'], this['data-base-textures-url']);
     this.configurator.init(JSON.parse(this['data-material-texture-urls']));
   }
 
@@ -85,4 +85,4 @@ class SketchfabViewer extends HTMLElement {
     this.shadowRoot.append(this.style);
   }
 }
-window.customElements.define('sketchfab-viewer', SketchfabViewer);
+window.customElements.define('model-viewer', ModelViewer);
