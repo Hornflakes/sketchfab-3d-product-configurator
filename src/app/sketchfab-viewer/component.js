@@ -32,41 +32,33 @@ class SketchfabViewer extends HTMLElement {
   }
 
   static get observedAttributes() {
-    return ['data-url-id', 'data-back-texture-id', 'data-seat-texture-id', 'data-legs-texture-id', 'texture-urls'];
+    return [
+      'data-sketchfab-url-id',
+      'data-base-textures-url',
+      'data-material-texture-urls',
+      'data-selected-material-texture-url',
+    ];
   }
 
   attributeChangedCallback(attributeName, oldValue, newValue) {
     if (oldValue === newValue) return;
     this[attributeName] = newValue;
 
-    if (attributeName === 'data-url-id') return;
+    if (attributeName === 'data-sketchfab-url-id') return;
+    if (attributeName === 'data-base-texture-url') return;
 
-    if (attributeName === 'texture-urls') this.initConfigurator(this[attributeName]);
-    else this.selectMaterial(attributeName, this[attributeName]);
+    if (attributeName === 'data-material-texture-urls') this.initConfigurator();
+    else if (attributeName === 'data-selected-material-texture-url') this.selectMaterialTexture(this[attributeName]);
   }
 
   initConfigurator() {
-    this.configurator = new Configurator(this['data-url-id']);
-    this.configurator.init(JSON.parse(this['texture-urls']));
+    this.configurator = new Configurator(this['data-sketchfab-url-id'], this['data-base-textures-url']);
+    this.configurator.init(JSON.parse(this['data-material-texture-urls']));
   }
 
-  selectMaterial(attributeName, textureId) {
-    let materialId;
-    switch (attributeName) {
-      case 'data-back-texture-id': {
-        materialId = this.configurator.materialIds.backMaterialId;
-        break;
-      }
-      case 'data-seat-texture-id': {
-        materialId = this.configurator.materialIds.seatMaterialId;
-        break;
-      }
-      case 'data-legs-texture-id': {
-        materialId = this.configurator.materialIds.legsMaterialId;
-        break;
-      }
-    }
-    this.configurator.setMaterialTexture(materialId, textureId);
+  selectMaterialTexture(attr) {
+    const objEntry = Object.entries(JSON.parse(attr))[0];
+    this.configurator.setMaterialTexture(objEntry[0], objEntry[1]);
   }
 
   connectedCallback() {

@@ -29,8 +29,18 @@ for (let el of seatTextureSelectors) {
   el.addEventListener('select', (e) => selectSeatTexture(e));
 }
 
-sketchfabViewerEl.setAttribute('data-url-id', '1ea391ec7c3440f18c2a6a7be3fdb184');
-sketchfabViewerEl.setAttribute('texture-urls', backTextureSelectors[0].getAttribute('texture-urls'));
+sketchfabViewerEl.setAttribute('data-sketchfab-url-id', '1ea391ec7c3440f18c2a6a7be3fdb184');
+sketchfabViewerEl.setAttribute('data-base-textures-url', 'https://hornflakes.github.io/sketchfab-viewer/src/assets');
+
+const backMaterialName = 'Velvet_Grey.003';
+const seatMaterialName = 'Velvet_Grey.001';
+sketchfabViewerEl.setAttribute(
+  'data-material-texture-urls',
+  JSON.stringify({
+    [backMaterialName]: JSON.parse(backTextureSelectors[0].getAttribute('texture-urls')),
+    [seatMaterialName]: JSON.parse(seatTextureSelectors[0].getAttribute('texture-urls')),
+  })
+);
 
 const handleDropdownHeaderClick = (dropdownHeaderEl) => {
   toggleDropdownEl(dropdownHeaderEl);
@@ -57,9 +67,15 @@ const setFormElWidthStyle = (width) => {
 };
 
 const selectBackTexture = (e) => {
-  sketchfabViewerEl.setAttribute('data-back-texture-id', e.detail.textureId);
+  sketchfabViewerEl.setAttribute(
+    'data-selected-material-texture-url',
+    JSON.stringify({ [backMaterialName]: e.detail.textureUrl })
+  );
 };
 
 const selectSeatTexture = (e) => {
-  sketchfabViewerEl.setAttribute('data-seat-texture-id', e.detail.textureId);
+  sketchfabViewerEl.setAttribute(
+    'data-selected-material-texture-url',
+    JSON.stringify({ [seatMaterialName]: e.detail.textureUrl })
+  );
 };
