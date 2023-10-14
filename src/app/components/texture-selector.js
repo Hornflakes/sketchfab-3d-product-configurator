@@ -13,7 +13,7 @@ class TextureSelector extends HTMLElement {
     this.template.innerHTML = `
       <section>
         <h2>
-          <b>Materiale</b>
+          <b>Upholstery</b>
         </h2>
 
         <div class="images">
@@ -111,7 +111,7 @@ class TextureSelector extends HTMLElement {
 
       <section class="last">
         <h2>
-          <b>Culori</b>
+          <b>Colors</b>
         </h2>
 
         <div class="images colors angel active">

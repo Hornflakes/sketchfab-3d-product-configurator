@@ -37,6 +37,7 @@ class SketchfabViewer extends HTMLElement {
       'data-base-textures-url',
       'data-material-texture-urls',
       'data-selected-material-texture-url',
+      'data-toggled-material',
     ];
   }
 
@@ -49,6 +50,7 @@ class SketchfabViewer extends HTMLElement {
 
     if (attributeName === 'data-material-texture-urls') this.initConfigurator();
     else if (attributeName === 'data-selected-material-texture-url') this.selectMaterialTexture(this[attributeName]);
+    else if (attributeName === 'data-toggled-material') this.toggleNode(this[attributeName]);
   }
 
   initConfigurator() {
@@ -57,8 +59,22 @@ class SketchfabViewer extends HTMLElement {
   }
 
   selectMaterialTexture(attr) {
-    const objEntry = Object.entries(JSON.parse(attr))[0];
-    this.configurator.setMaterialTexture(objEntry[0], objEntry[1]);
+    const [materialName, textureUrl] = Object.entries(JSON.parse(attr))[0];
+    this.configurator.setMaterialTexture(materialName, textureUrl);
+  }
+
+  toggleNode(attr) {
+    const [materialName, show] = Object.entries(JSON.parse(attr))[0];
+    if (show) this.showMaterial(materialName);
+    else this.hideMaterial(materialName);
+  }
+
+  showMaterial(materialName) {
+    this.configurator.showMaterial(materialName);
+  }
+
+  hideMaterial(materialName) {
+    this.configurator.hideMaterial(materialName);
   }
 
   connectedCallback() {

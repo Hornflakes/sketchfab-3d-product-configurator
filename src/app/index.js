@@ -24,6 +24,14 @@ for (let el of backTextureSelectors) {
   el.addEventListener('select', (e) => selectBackTexture(e));
 }
 
+const hideBackCheckbox = document.querySelector('input');
+hideBackCheckbox.addEventListener('click', () => {
+  sketchfabViewerEl.setAttribute(
+    'data-toggled-material',
+    JSON.stringify({ [backMaterialName]: !hideBackCheckbox.checked })
+  );
+});
+
 const seatTextureSelectors = document.getElementsByClassName('seat');
 for (let el of seatTextureSelectors) {
   el.addEventListener('select', (e) => selectSeatTexture(e));

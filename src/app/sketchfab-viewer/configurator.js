@@ -78,7 +78,6 @@ class Configurator {
     this.api.getNodeMap((err, nodes) => {
       if (!err) {
         this.groupNodesByMaterial(nodes);
-        this.consoleLog();
       }
     });
   };
@@ -89,15 +88,6 @@ class Configurator {
         this.nodes[node.materialID].push(node);
       }
     }
-  }
-
-  consoleLog() {
-    console.log('nodes', this.nodes);
-    console.log('nodes.length =', Object.keys(this.nodes).length);
-    console.log('materials', this.materials);
-    console.log('materials.length =', Object.keys(this.materials).length);
-    console.log('textureUidMap', this.textureUidMap);
-    console.log('materialIdMap', this.materialIdMap);
   }
 
   setMaterialTexture(materialName, textureUrl) {
@@ -117,14 +107,14 @@ class Configurator {
     });
   }
 
-  showNode(materialName) {
+  showMaterial(materialName) {
     const node = this.getNode(materialName);
     node.forEach((n) => {
       this.api.show(n.instanceID);
     });
   }
 
-  hideNode(materialName) {
+  hideMaterial(materialName) {
     const node = this.getNode(materialName);
     node.forEach((n) => {
       this.api.hide(n.instanceID);
