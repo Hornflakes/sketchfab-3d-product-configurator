@@ -59,6 +59,10 @@ class Configurator {
       if (!err) {
         materials.forEach((m) => {
           if (m.name.includes('Material')) return;
+
+          m.channels.AlbedoPBR.enable = true;
+          m.channels.Opacity.enable = true;
+
           this.materials[m.id] = m;
           this.nodes[m.id] = [];
         });
@@ -98,7 +102,6 @@ class Configurator {
       if (!err) {
         const texture = textures.find((t) => t.uid === this.textureUidMap[textureUrl]);
 
-        material.channels.AlbedoPBR.enable = true;
         material.channels.AlbedoPBR.texture = texture;
         material.channels.AlbedoPBR.color = false;
 
@@ -108,17 +111,19 @@ class Configurator {
   }
 
   showMaterial(materialName) {
-    const node = this.getNode(materialName);
-    node.forEach((n) => {
-      this.api.show(n.instanceID);
-    });
+    const materialId = this.materialIdMap[materialName];
+    const material = this.materials[materialId];
+
+    material.channels.Opacity.factor = 1;
+    this.api.setMaterial(material);
   }
 
   hideMaterial(materialName) {
-    const node = this.getNode(materialName);
-    node.forEach((n) => {
-      this.api.hide(n.instanceID);
-    });
+    const materialId = this.materialIdMap[materialName];
+    const material = this.materials[materialId];
+
+    material.channels.Opacity.factor = 0;
+    this.api.setMaterial(material);
   }
 
   getNode(materialName) {
